@@ -63,7 +63,7 @@ app.get '/search', (req, res) ->
 			res.json results
 
 server.listen 8000, ->
-	console.log "listening on port 8080"
+	console.log "listening on port 8000"
 
 
 # Socket.IO handlers
