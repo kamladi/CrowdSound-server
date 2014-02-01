@@ -44,7 +44,7 @@ $(function() {
 
 //id is the unique track id that exists for every song. Obtain from tracks[i].id
 function playSong (id, startedTimestamp) {
-	console.log("/tracks/" + String(id));
+	//resource: http://www.schillmania.com/projects/soundmanager2/doc/#smsound-setposition
 	SC.stream("/tracks/" + String(id), function(sound){
 		console.dir(sound);
 		sound.onload = function() {
