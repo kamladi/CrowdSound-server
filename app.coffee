@@ -65,6 +65,9 @@ io.sockets.on 'connection', (socket) ->
 
 	socket.on 'joinRoom', (room) ->
 		socket.join room
+		# create new room if room doesn't exist
+		if !ROOMS[room]?
+			ROOMS.newRoom room
 		ROOMS.addUser room, socket.id
 		# save room id in socket object for easy reference
 		socket.room = room

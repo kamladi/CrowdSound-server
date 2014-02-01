@@ -11,7 +11,8 @@ class RoomStore
 		return @rooms[roomId].playlist
 
 	addUser: (roomId, socketId) ->
-		return @rooms[roomId].users.push socket
+		console.dir @rooms
+		return @rooms[roomId].users.push socketId
 
 	getCurrTime: (roomId) ->
 		return @rooms[roomId].timestamp
