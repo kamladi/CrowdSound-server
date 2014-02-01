@@ -1,12 +1,16 @@
 html(lang="en")
-  head
-    title CrowdSound
-    link(rel='stylesheet', href='/css/style.css')
-    link(rel='stylesheet', href='/css/home.css')
-    link(rel='stylesheet', href='/css/bootstrap.css')
-    script(src='http://code.jquery.com/jquery.js')
-    script(src="/socket.io/socket.io.js")
-  body
-    .row
-      #main.col-md-10.col-md-offset-2
-        block content
+	head
+	title CrowdSound
+	link(rel='stylesheet', href='/css/style.css')
+	link(rel='stylesheet', href='/css/home.css')
+	link(rel='stylesheet', href='/css/bootstrap.css')
+	script(src='http://code.jquery.com/jquery.js')
+	script(src="/socket.io/socket.io.js")
+	body
+	.container
+		.content
+			.row.center-row
+				.col-md-6.col-md-offset-3
+					#main(style="width=100%;")
+						.row
+							block content
