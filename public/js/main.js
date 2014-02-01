@@ -14,10 +14,13 @@ socket.on('playlist', function(data) {
   console.dir(data);
 });
 
+//Soundcloud stuff
+SC.initialize({
+	client_id: '9e7bd4599a033c7207a6c683203bd2ef'
+});
+
+
 function soundcloudSearch (query) {
-	SC.initialize({
-		client_id: '9e7bd4599a033c7207a6c683203bd2ef'
-	});
 	SC.get('/tracks', { q: query}, function(tracks) {
 		console.log(tracks);
 	});
