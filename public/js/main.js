@@ -28,7 +28,7 @@ $(function() {
 			console.log("search complete");
 			console.log(data);
 			htmlString = data.map(function(track) {
-				return "<li data-id="+track.stream_url+"<strong>" + track.title + "</strong><a class='btn btn-primary' href='#'>Add Song</a></li>";
+				return "<li data-id="+track.stream_url+"<a class='btn btn-primary' href='#'><strong>" + track.title + "</strong></a></li><br>";
 			}).join('');
 			$('#searchResults').html(htmlString);
 			$('#searchResults li a').click(function(e) {

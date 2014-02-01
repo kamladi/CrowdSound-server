@@ -27,6 +27,7 @@ body {
 .btn.btn-primary {
 	color:#34495E;
 	border-color:#34495E;
+	width: 100%;
 }
 
 .btn.btn-primary:hover {
@@ -37,4 +38,9 @@ body {
 .center-row {
 	height: 100%;
     vertical-align: middle;
+}
+
+#searchResults {
+	width:100%;
+	padding:5px;
 }
