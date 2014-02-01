@@ -23,6 +23,7 @@ app.use express.static(path.join(__dirname, 'public'))
 
 # URL Routes
 app.get '/', (req, res) ->
+	console.log("yoyoyo")
 	res.render 'index'
 
 app.get '/:roomId', (req, res) ->
