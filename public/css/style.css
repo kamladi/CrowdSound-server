@@ -1,8 +1,23 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background: url(/img/bg.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
-
-a {
-  color: #00B7FF;
+.container {
+	display:table;
+	height:100%;
+}
+.row {
+	display:table-cell;
+	vertical-align:middle;
+	height:100%;
+}
+.hidden {
+	display: none;
+}
+#success, #error {
+	width: 75%;
+	margin-bottom: 5px;
 }

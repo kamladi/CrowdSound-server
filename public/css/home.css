@@ -1,0 +1,14 @@
+#main {
+	background-color: rgba(255,255,255,0.75);
+	border-radius: 25px;
+	padding: 50px 30px;
+}
+#main section:first-child {
+	border-right: 1px solid #aaa;
+}
+#main p {
+	line-height: 2em;
+}
+form h3 {
+	margin-top: 0px;
+}

@@ -1,18 +1,14 @@
 include layout
-h1 I SAID BEEEEITCH
+link(rel='stylesheet', href='/css/home.css')
 .row
-	#main.span9.offset1.row
+	#main.col-md-9.col-md-offset-1
 		section.span4(style="text-align: right; padding-right: 25px")
 			h1(style="margin:0;")
 				TextBack
-			h2(style="font-size:3em;")
-				Never miss a beat. We got your back.
+			h2(style="font-size:3em;") Never miss a beat. We got your back.
 		section.class
 			form(method="POST", action="/login")
 						h3 Login
 						input(type="tel",name="phone",id="phone",placeholder="Phone Number")
 						input(type="password",name="password",id="inputPassword",placeholder="Password")
-						label.checkbox
-							Remember me
-							input.checkbox
 						button.btn.btn-success(type="submit") Sign in
