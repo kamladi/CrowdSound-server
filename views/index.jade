@@ -1,10 +1,7 @@
-include layout
-link(rel='stylesheet', href='/css/home.css')
-.row
-	#main.col-md-10.col-md-offset-1
-		section.span4(style="text-align: right; padding-right: 25px")
-			h1(style="margin:0;")
-				TextBack
-			h2(style="font-size:3em;") Never miss a beat. We got your back.
-		section.span4
-			a.btn.btn-primary(href='/newRoom') Create New Room
+extends layout
+block content
+	section.span4
+		h1(style="margin:0;") TextBack
+		h2(style="font-size:3em;") Never miss a beat. We got your back.
+		a.btn.btn-primary(href='/newRoom') Create new room
+
