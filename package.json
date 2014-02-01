@@ -1,0 +1,23 @@
+{
+  "name": "CrowdSound-server",
+  "version": "0.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/kamladi/CrowdSound-server.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kamladi/CrowdSound-server/issues"
+  },
+  "homepage": "https://github.com/kamladi/CrowdSound-server",
+  "dependencies": {
+    "socket.io": "~0.9.16",
+    "coffee-script": "~1.7.1"
+  }
+}
