@@ -6,10 +6,16 @@ body {
   background-size: cover;
 }
 .container {
-	display:table;
-	height:100%;
+	display: block;
+	position: relative;
 }
-
+.content {
+	margin-top: 15%;
+	position: relative
+}
+.color {
+	color: #F1C40F;
+}
 .hidden {
 	display: none;
 }
