@@ -1,7 +1,9 @@
 http = require 'http'
 moment = require 'moment'
 url = require 'url'
+jade = require 'jade'
 qs = require 'querystring'
+fs = require 'fs'
 request = require 'request'
 RoomStore = require './RoomStore'
 
@@ -12,6 +14,14 @@ httpHandler = (req, res) ->
 	if url.pathname == '/'
 		res.writeHead 200, {"Content-Type": "text/plain"}
 		res.end()
+
+	# /test => return test html
+	else if url.pathname == '/test'
+		fs.readFile __dirname + '/test.jade', (err, template) ->
+			tmpFn = jade.compile(template)
+			res.writeHead 200, {"Content-Type": "text/html"}
+			res.end tmpFn()
+
 	else if url.pathname == '/search'
 		# get query string from url
 		queryObj = qs.parse url.query
@@ -20,6 +30,7 @@ httpHandler = (req, res) ->
 			q: queryObj.q
 		}
 		queryString = qs.stringify(params)
+
 		# request soundcloud api with query
 		SOUNDCLOUD_URL = "https://api.soundcloud.com/tracks.json?"
 		request SOUNDCLOUD_URL + queryString, (err, response, body) ->
@@ -39,6 +50,7 @@ httpHandler = (req, res) ->
 					}
 				res.writeHead 200, {"Content-Type": "application/json"}
 				res.end JSON.stringify(results)
+
 	else
 		res.writeHead 404, {"Content-Type": "text/plain"}
 		res.end()
