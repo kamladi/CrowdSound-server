@@ -6,4 +6,9 @@ block content
 		#playlist.col-md-4
 			h3 Playlist
 			ul#playlist
-	button(id="searchButton")
+
+	form(action="/searchRoom")
+		input(id="searchText", type="text", value="")
+		input(id="searchButton", type="submit", value="Search")
+	//- input(id="searchButton", type="text")
+	//- button(id="submit", value="Submit", type="text")
