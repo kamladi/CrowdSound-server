@@ -46,13 +46,9 @@ $(function() {
 function playSong (id, startedTimestamp) {
 	//resource: http://www.schillmania.com/projects/soundmanager2/doc/#smsound-setposition
 	SC.stream("/tracks/" + String(id), function(sound){
-		console.dir(sound);
-		sound.onload = function() {
 			var currentTimestamp = new Date();
 			var offset = currentTimestamp - startedTimestamp;
 			sound.setPosition(offset);
 			sound.play();
-		}
-		sound.load();
 	});
 }

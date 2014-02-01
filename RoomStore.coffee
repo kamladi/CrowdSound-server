@@ -35,7 +35,7 @@ class RoomStore
 			name: "Room #{newId}"
 			playlist: default_playlist
 			users: []
-			timestamp: 0
+			timestamp: moment()
 
 		return newId
 
