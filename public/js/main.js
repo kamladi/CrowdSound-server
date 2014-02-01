@@ -42,7 +42,7 @@ function soundcloudSearch (query) {
 
 //id is the unique track id that exists for every song. Obtain from tracks[i].id
 function playSong (id, startedTimestamp) {
-	
+	//resource: http://www.schillmania.com/projects/soundmanager2/doc/#smsound-setposition
 	SC.stream("/tracks/" + String(id), function(sound){
 		sound.onload = function() {
 			var currentTimestamp = new Date();
