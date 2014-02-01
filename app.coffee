@@ -23,6 +23,7 @@ app.use express.static(path.join(__dirname, 'public'))
 
 # URL Routes
 app.get '/', (req, res) ->
+	console.log("yoyoyo")
 	res.render 'index'
 
 app.get '/:roomId', (req, res) ->
@@ -61,8 +62,8 @@ app.get '/search', (req, res) ->
 				}
 			res.json results
 
-server.listen 8080, ->
-	console.log "listening on port 8080"
+server.listen 8000, ->
+	console.log "listening on port 8000"
 
 
 # Socket.IO handlers
