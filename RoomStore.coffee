@@ -6,6 +6,7 @@ class RoomStore
 
 		@newRoom()
 		@newRoom()
+		console.dir @rooms
 
 	newRoom: ->
 		newId = @rooms.length
@@ -34,6 +35,9 @@ class RoomStore
 			timestamp: 0
 
 		return newId
+
+	getRoom: (roomId) ->
+		return @rooms[roomId]
 
 	getPlaylist: (roomId) ->
 		return @rooms[roomId].playlist

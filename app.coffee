@@ -27,15 +27,16 @@ app.get '/', (req, res) ->
 
 app.get '/newRoom', (req, res) ->
 	newRoomId = ROOMS.newRoom()
-	res.redirect '/#{newRoomId}'
+	res.redirect "/#{newRoomId}"
 
 
 app.get '/:roomId', (req, res) ->
 	roomId = parseInt req.params.roomId
-	if !ROOMS[roomId]?
+	room = ROOMS.getRoom roomId
+	console.dir room
+	if !room?
 		res.send 404, "invalid room"
 	else
-		room = ROOMS[roomId]
 		res.render 'room',
 			name: room.name,
 			playlist: room.playlist
