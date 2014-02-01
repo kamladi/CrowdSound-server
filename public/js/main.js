@@ -1,7 +1,6 @@
-var socket = io.connect('http://localhost:8000');
-var roomId =
-console.log();
-console.log("THIS IS A TEST LOOKOUT");
+var socket = io.connect('http://localhost:8080');
+
+console.log(window.location.pathname);
 socket.emit('joinRoom', 0);
 
 socket.on('timestamp', function(data) {
@@ -28,7 +27,11 @@ function soundcloudSearch (query) {
 	/*
 	SC.get('/tracks', { q: query}, function(tracks) {
 		console.log(tracks);
+		//somehow propogate the search results on the page
 	});
+
+
+
 */
 	$.getJSON('/search', {q: encodeURIComponent(query)}, function(data) {
 		console.log("search complete");
@@ -36,3 +39,17 @@ function soundcloudSearch (query) {
 	})
 }
 
+
+//id is the unique track id that exists for every song. Obtain from tracks[i].id
+function playSong (id, startedTimestamp) {
+	
+	SC.stream("/tracks/" + String(id), function(sound){
+		sound.onload = function() {
+			var currentTimestamp = new Date();
+			var offset = currentTimestamp - startedTimestamp;
+			sound.setPosition(offset);
+			sound.play();
+		}
+		sound.load();
+	});
+}
