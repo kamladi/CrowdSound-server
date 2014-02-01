@@ -4,7 +4,11 @@ class RoomStore
 	constructor: ->
 		@rooms = []
 
+		@newRoom()
+		@newRoom()
+
 	newRoom: ->
+		newId = @rooms.length
 		# build default playlist
 		rappersDelight =
 			stream_url: 'https://api.soundcloud.com/tracks/1954789/stream'
@@ -24,9 +28,12 @@ class RoomStore
 		default_playlist = [rappersDelight, gasPedal, darkHorse]
 
 		@rooms.push
+			name: "Room #{newId}"
 			playlist: default_playlist
 			users: []
 			timestamp: 0
+
+		return newId
 
 	getPlaylist: (roomId) ->
 		return @rooms[roomId].playlist
@@ -47,5 +54,7 @@ class RoomStore
 
 	addSongToPlaylist: (roomId, songURL) ->
 		@rooms[roomId].playlist.push songURL
+
+	getName: (roomId) -> return @rooms[roomId].name
 
 module.exports = RoomStore

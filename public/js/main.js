@@ -1,5 +1,6 @@
 var socket = io.connect('http://localhost:8080');
 
+console.log(window.lcoation.pathname);
 socket.emit('joinRoom', 0);
 
 socket.on('timestamp', function(data) {
