@@ -1,66 +1,64 @@
 http = require 'http'
+express = require 'express'
 moment = require 'moment'
 url = require 'url'
 jade = require 'jade'
 qs = require 'querystring'
+path = require 'path'
 fs = require 'fs'
 request = require 'request'
 RoomStore = require './RoomStore'
 
+app = express()
+server = http.createServer(app)
 ROOMS = new RoomStore()
 
-httpHandler = (req, res) ->
-	url = url.parse req.url
-	if url.pathname == '/'
-		res.writeHead 200, {"Content-Type": "text/plain"}
-		res.end()
-
-	# /test => return test html
-	else if url.pathname == '/test'
-		fs.readFile __dirname + '/test.jade', (err, template) ->
-			tmpFn = jade.compile(template)
-			res.writeHead 200, {"Content-Type": "text/html"}
-			res.end tmpFn()
-
-	else if url.pathname == '/search'
-		# get query string from url
-		queryObj = qs.parse url.query
-		params = {
-			client_id: '9e7bd4599a033c7207a6c683203bd2ef'
-			q: queryObj.q
-		}
-		queryString = qs.stringify(params)
-
-		# request soundcloud api with query
-		SOUNDCLOUD_URL = "https://api.soundcloud.com/tracks.json?"
-		request SOUNDCLOUD_URL + queryString, (err, response, body) ->
-			if err
-				console.log "ERROR requesting soundcloud api"
-				res.writeHead 404, {"Content-Type": "text/plain"}
-				res.end()
-			else
-				# return subset of json result
-				json = JSON.parse body
-				results = json.map (track) ->
-					return {
-						stream_url: track.stream_url
-						uri: track.uri
-						title: track.title
-						duration: track.duration
-					}
-				res.writeHead 200, {"Content-Type": "application/json"}
-				res.end JSON.stringify(results)
-
-	else
-		res.writeHead 404, {"Content-Type": "text/plain"}
-		res.end()
+# express config
+app.set 'views', __dirname + '/views'
+app.set 'view engine', 'jade'
+app.use express.logger('dev')
+app.use express.methodOverride()
+app.use express.static(path.join(__dirname, 'public'))
 
 
-app = http.createServer(httpHandler)
-app.listen(8080, () -> console.log "listening on port 8080")
+# URL Routes
+app.get '/', (req, res) ->
+	app.render 'index'
 
+app.get '/search', (req, res) ->
+	console.log req.query
+	# get query string from url
+	queryObj = qs.parse url.query
+	params = {
+		client_id: '9e7bd4599a033c7207a6c683203bd2ef'
+		q: queryObj.q
+	}
+	queryString = qs.stringify(params)
+
+	# request soundcloud api with query
+	SOUNDCLOUD_URL = "https://api.soundcloud.com/tracks.json?"
+	request SOUNDCLOUD_URL + queryString, (err, response, body) ->
+		if err
+			console.log "ERROR requesting soundcloud api"
+			res.send 404, "You suck"
+		else
+			# return subset of json result
+			json = JSON.parse body
+			results = json.map (track) ->
+				return {
+					stream_url: track.stream_url
+					uri: track.uri
+					title: track.title
+					duration: track.duration
+				}
+			res.json results
+
+server.listen 8080, ->
+	console.log "listening on port 8080"
+
+
+# Socket.IO handlers
 io = require('socket.io').listen(app)
-
 io.sockets.on 'connection', (socket) ->
 
 	socket.on 'joinRoom', (room) ->
@@ -76,11 +74,10 @@ io.sockets.on 'connection', (socket) ->
 		playlist = ROOMS.getPlaylist(room)
 		socket.emit 'playlist', playlist
 		now = moment()
-		packet = {
+		packet =
 			url: playlist[0]
 			songTime: now.diff(ROOMS.getTimestamp room)
 			serverTime: now
-		}
 		socket.emit 'timestamp', packet
 
   # when client adds new song to playlist
