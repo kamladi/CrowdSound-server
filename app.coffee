@@ -66,7 +66,7 @@ server.listen 8080, ->
 
 
 # Socket.IO handlers
-io = require('socket.io').listen(app)
+io = require('socket.io').listen(server)
 io.sockets.on 'connection', (socket) ->
 
 	socket.on 'joinRoom', (room) ->
