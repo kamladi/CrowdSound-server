@@ -80,28 +80,36 @@ server.listen 8000, ->
 io = require('socket.io').listen(server)
 io.sockets.on 'connection', (socket) ->
 
-	socket.on 'joinRoom', (room) ->
-		socket.join room
+	socket.on 'joinRoom', (roomId) ->
+		socket.join roomId
 		# create new room if room doesn't exist
-		if !ROOMS[room]?
-			ROOMS.newRoom room
-		ROOMS.addUser room, socket.id
+		if !ROOMS[roomId]?
+			ROOMS.newRoom roomId
+		ROOMS.addUser roomId, socket.id
 		# save room id in socket object for easy reference
-		socket.room = room
+		socket.room = roomId
 
 		# send playlist and current song packet to client
-		playlist = ROOMS.getPlaylist(room)
-		socket.emit 'playlist', playlist
-		now = moment()
+		room = ROOMS.getRoom roomId
+		socket.emit 'playlist', room.playlist
 		packet =
-			url: playlist[0]
-			songTime: now.diff(ROOMS.getTimestamp room)
-			serverTime: now
-		socket.emit 'timestamp', packet
+			songId: room.playlist[0].id
+			serverTime: room.timestamp
+		setTimeout room.duration, ->
+			nextSong roomId, socket
+		socket.emit 'playSong', packet
 
   # when client adds new song to playlist
   socket.on 'addSong', (songURL) ->
   	roomId = socket.room
   	newPlaylist = ROOMS.addSongToPlaylist roomId, songURL
   	io.sockets.in(roomId).emit 'playlist', ROOMS.getPlaylist(roomId)
+
+nextSong = (roomId) ->
+	room = ROOMS.getRoom roomId
+	ROOMS.nextSong(roomId)
+	packet =
+			songId: room.playlist[0].id
+			serverTime: room.timestamp roomId
+	io.sockets.in(roomId).emit('playSong', packet)
 

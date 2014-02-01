@@ -2,11 +2,11 @@ var socket = io.connect('http://localhost:8000');
 	console.log();
 	socket.emit('joinRoom', 0);
 
-	socket.on('timestamp', function(data) {
+	socket.on('playSong', function(data) {
 	  console.log("received timestamp");
 	  window.timestamp = data;
 	  console.dir(window.playlist);
-	  playSong(window.playlist[0].id, data.serverTime);
+	  playSong(data.songId, data.serverTime);
 	});
 
 	socket.on('playlist', function(data) {
@@ -47,7 +47,8 @@ function playSong (id, startedTimestamp) {
 	//resource: http://www.schillmania.com/projects/soundmanager2/doc/#smsound-setposition
 	SC.stream("/tracks/" + String(id), function(sound){
 			var currentTimestamp = new Date();
-			var offset = currentTimestamp - startedTimestamp;
+			var offset = currentTimestamp - new Date(startedTimestamp);
+			console.log("start at " + offset);
 			sound.setPosition(offset);
 			sound.play();
 	});
