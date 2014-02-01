@@ -35,7 +35,7 @@ class RoomStore
 			name: "Room #{newId}"
 			playlist: default_playlist
 			users: []
-			timestamp: moment()
+			timestamp: new Date()
 
 		return newId
 
@@ -54,7 +54,7 @@ class RoomStore
 
 	nextSong: (roomId) ->
 		@rooms[roomId].playlist.shift()
-		@rooms[roomId].timestamp = moment()
+		@rooms[roomId].timestamp = new Date()
 
 	getTimestamp: (roomId) ->
 		return @rooms[roomId].timestamp

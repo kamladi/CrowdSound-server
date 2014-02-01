@@ -41,15 +41,48 @@ $(function() {
 });
 
 
+var gSound;
 
 //id is the unique track id that exists for every song. Obtain from tracks[i].id
 function playSong (id, startedTimestamp) {
+	var started = new Date(startedTimestamp).getTime()
+	console.log("started: " + started);
+	var current = new Date().getTime();
+	console.log("current: " + current);
+	var offset = current - started;
+	console.log("offset: " + offset);
+
 	//resource: http://www.schillmania.com/projects/soundmanager2/doc/#smsound-setposition
-	SC.stream("/tracks/" + String(id), function(sound){
-			var currentTimestamp = new Date();
-			var offset = currentTimestamp - new Date(startedTimestamp);
-			console.log("start at " + offset);
+	SC.whenStreamingReady(function() {
+		var sound = SC.stream(id, {autoLoad: true});
+		console.dir(sound);
+		sound.setVolume(0);
+		sound.play();
+		setTimeout(function() {
 			sound.setPosition(offset);
-			sound.play();
-	});
+			sound.setVolume(100);
+		},5000);
+
+
+		// sound = SC.stream(id, {
+		// 	from: offset,
+		// 	autoLoad: true,
+		// 	autoPlay: true
+		// 	}
+		// });
+		// console.log(offset);
+		// sound.setPosition(offset);
+		// sound.play(sound.id, {from: offset});
+});
+
+
+
+	/*SC.whenStreamingReady(function() {
+		var sound = SC.stream(id, {
+			from: offset,
+			autoLoad: true,
+			autoPlay: true,
+			onplay: function() { console.log(this.position); }
+		});
+	}); */
 }
