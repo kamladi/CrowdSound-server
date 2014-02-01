@@ -3,14 +3,19 @@ block content
 	script(src="http://connect.soundcloud.com/sdk.js")
 	script(src="/js/main.js")
 	h1= name
+	.row
 		#playlist
 		h3 Playlist
 		ul#playlist
 			each track in playlist
 				li: span=track.title
-	form(action="/searchRoom")
-		input(id="searchText", type="text", value="")
-		input(id="searchButton", type="submit", value="Search")
+		section#search
+			.search
+				input#searchText(type="text", value="")
+				button#searchButton Search
+				ul#searchResults
+
+
 	//- input(id="searchButton", type="text")
 	//- button(id="submit", value="Submit", type="text")
 

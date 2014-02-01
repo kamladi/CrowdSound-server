@@ -29,30 +29,18 @@ app.get '/newRoom', (req, res) ->
 	newRoomId = ROOMS.newRoom()
 	res.redirect "/#{newRoomId}"
 
-
-app.get '/:roomId', (req, res) ->
-	roomId = parseInt req.params.roomId
-	room = ROOMS.getRoom roomId
-	console.dir room
-	if !room?
-		res.send 404, "invalid room"
-	else
-		res.render 'room',
-			name: room.name,
-			playlist: room.playlist
-
 app.get '/search', (req, res) ->
-	console.log req.query
 	# get query string from url
-	queryObj = qs.parse url.query
 	params = {
 		client_id: '9e7bd4599a033c7207a6c683203bd2ef'
-		q: queryObj.q
+		q: req.query.q
+		limit: 5
 	}
 	queryString = qs.stringify(params)
 
 	# request soundcloud api with query
 	SOUNDCLOUD_URL = "https://api.soundcloud.com/tracks.json?"
+	console.log SOUNDCLOUD_URL + queryString
 	request SOUNDCLOUD_URL + queryString, (err, response, body) ->
 		if err
 			console.log "ERROR requesting soundcloud api"
@@ -68,6 +56,19 @@ app.get '/search', (req, res) ->
 					duration: track.duration
 				}
 			res.json results
+
+app.get '/:roomId', (req, res) ->
+	roomId = parseInt req.params.roomId
+	room = ROOMS.getRoom roomId
+	console.dir room
+	if !room?
+		res.send 404, "invalid room"
+	else
+		res.render 'room',
+			name: room.name,
+			playlist: room.playlist
+
+
 
 server.listen 8000, ->
 	console.log "listening on port 8000"
