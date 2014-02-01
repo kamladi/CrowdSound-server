@@ -1,0 +1,11 @@
+<form action="/templates/{{currentTemplateIndex}}" method="POST" class="edit">
+	<p><input id="templateTitle" type="text" style="width: 320px" value="{{currentTemplate.title}}" name="title" placeholder="Message Title"></p>
+	<p><textarea id="templateText" type="text" rows="4" style="width: 320px" cols="50" name="text" placeholder="Auto-reply message...">{{currentTemplate.text}}</textarea></p>
+	<p><input type="submit" class="btn" value="Save">
+		{% if currentTemplate.isSelected %}
+			<input type="button" id="startStop" class="btn btn-danger stop" style="margin-left:10px;" value="Stop AutoReply">
+		{% else %}
+			<input type="button" id="startStop" class="btn btn-success start" style="margin-left:10px;" value="Start AutoReply!">
+		{% endif %}
+	</p>
+</form>

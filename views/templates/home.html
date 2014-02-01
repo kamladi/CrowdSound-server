@@ -1,0 +1,137 @@
+{% extends "templates/layout.html" %}
+{% block css %}
+<style type="text/css">
+		#main {
+			min-height:400px;
+			display:block;
+		}
+
+		#content {
+			height:400px;
+			background-color: rgba(255,255,255,0.75);
+			border-radius: 0px 15px 15px 0px;
+			margin: auto;
+			padding-left:30px;
+			position: relative;
+		}
+
+		#content h3 {
+			color: #6CCD8C;
+			margin-top: 30px;
+			font-size: 30px;
+		}
+		#nav {
+			height:400px;
+			overflow-y: auto;
+			border-right: 1px solid white;
+			background-color: rgba(33,35,40,0.75);
+			border-radius: 15px 0px 0px 15px;
+		}
+
+		#nav ul {
+			list-style:none;
+			text-align:center;
+			margin-top:30px;
+			margin-left: 0px;
+		}
+
+		#nav li {
+			width:60%;
+			color: #FFFFFF;
+			font-size:1.5em;
+			font-weight:bold;
+			padding:15px;
+			margin: 0px auto;
+			border-bottom: 1px solid rgba(255, 255, 255,.75);
+			position:relative;
+		}
+
+		#nav li span.label.selected {
+			position: absolute;
+			left: 5px;
+			top: 15px;
+			z-index:50;
+		}
+
+		#nav li:hover {
+			background-color: rgb(86, 164, 112);
+			cursor: pointer;
+		}
+
+		#nav li.active {
+			background-color: rgb(108, 205, 140);
+		}
+
+		#nav li:last-child {
+			border-bottom:none;
+			border-radius: 0px 0px 10px 10px;
+		}
+
+		#nav li:first-child {
+			margin-top:0px;
+			border-radius: 10px 10px 0px 0px;
+		}
+
+		form input[type="text"],input {
+			height:35px;
+		}
+		.delete {
+			position: absolute;
+			right: 5px; top: 7px;
+			font-size: 25px;
+			color: rgba(255,255,255,0.75);
+			cursor: pointer;
+			padding: 5px;
+			display: none;
+		}
+		li:hover .delete {
+			display: inline-block;
+		}
+		.delete:hover {
+			color: #cc3300;
+		}
+	</style>
+{% endblock %}
+{% block content %}
+<script>
+	var CURRENT_ID = {{ currentTemplateIndex }};
+</script>
+<div id="main" class="row">
+	<div id="nav" class="span4 offset1">
+		<ul id="templateUL">
+			{% for template in templates %}
+
+					{% if template.isSelected %}
+					<li data-index={{loop.index0}} class="active">
+					<span class="label label-warning selected">Active</span>
+					<span class="delete pull-right">&times;</span>
+					{{template.title}}
+					</li>
+					{% else %}
+					<li data-index={{loop.index0}}>
+						<span class="delete pull-right">&times;</span>
+						{{template.title}}
+					</li>
+					{%endif%}
+
+
+			{% endfor %}
+			<li data-index='new'>+ New Template</li>
+		</ul>
+	</div>
+	<div id="content" class="span5">
+		<h3>Edit Message</h3>
+		<div id="templateFormDiv">
+			{% include "templates/editTemplateForm.html" %}
+		</div>
+		<div id="success" class="alert alert-success hidden">
+			Message Here
+		</div>
+		<div id="error" class="alert alert-error hidden">
+			Message Here
+		</div>
+	</div>
+</div>
+{% endblock %}
+{% block js %}
+{% endblock %}

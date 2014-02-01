@@ -1,0 +1,41 @@
+{% extends "templates/layout.html" %}
+{% block css %}
+<style>
+	#main {
+		background-color: rgba(255,255,255,0.75);
+		border-radius: 25px;
+		padding: 50px 30px;
+	}
+	#main section:first-child {
+		border-right: 1px solid #aaa;
+	}
+	#main p {
+		line-height: 2em;
+	}
+	form h3 {
+		margin-top: 0px;
+	}
+</style>
+{% endblock %}
+{% block content %}
+<div class="row">
+	<div class="span9 offset1 row" id="main">
+		<section class="span4" style="text-align: right; padding-right: 25px">
+			<h1 style="margin:0;">TextBack</h1>
+			<h2 style="font-size:3em;">Never miss a beat. We got your back.</h2>
+		</section>
+		<section class="span3">
+			<form method="POST" action="/login">
+						<h3>Login</h3>
+						<input type="tel" name="phone" id="phone" placeholder="Phone Number">
+						<input type="password" name="password" id="inputPassword" placeholder="Password">
+						<label class="checkbox">
+							<input type="checkbox"> Remember me
+						</label>
+						<button type="submit" class="btn btn-success">Sign in</button>
+			</form>
+		</section>
+	</div>
+
+</div>
+{% endblock %}

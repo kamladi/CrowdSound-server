@@ -1,0 +1,21 @@
+{% extends "templates/layout.html" %}
+{% block content %}
+<style type="text/css">
+		#yolo {
+			background-color: rgba(255,255,255,0.75);
+			border-radius: 25px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+</style>
+	<div class="row" id="main">
+		<div class="span4 offset3 row" id="yolo">
+		<form action="/newUser" method="POST" class="span1">
+			<h3>Register</h3>
+			<p><input name="phone" type="tel" placeholder="1234567890"></p>
+			<p><input type="text" name="password" placeholder="password"></p>
+			<p><input type="submit" value="Register" class="btn btn-success"></p>
+		</form>
+	</div>
+	</div>
+{% endblock %}

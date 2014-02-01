@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>TxtBack</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Adhish Ramkumar">
+		<link href="../static/stylesheets/bootstrap.css" rel="stylesheet" media="screen, projection">
+		<style>
+			body {
+				background: url(../static/img/bg.jpg) no-repeat center center fixed;
+				-webkit-background-size: cover;
+			  -moz-background-size: cover;
+			  -o-background-size: cover;
+			  background-size: cover;
+			}
+			.container {
+				display:table;
+				height:100%;
+			}
+			.row {
+				display:table-cell;
+				vertical-align:middle;
+				height:100%;
+			}
+			.hidden {
+				display: none;
+			}
+			#success, #error {
+				width: 75%;
+				margin-bottom: 5px;
+			}
+		</style>
+		{% block css %}
+		{% endblock %}
+	</head>
+	<body>
+		<script type="text/javascript" src="../static/js/jquery-1.9.0.js"></script>
+		<script type="text/javascript" src="../static/js/client.js"></script>
+		<div class="container" style="padding-top:10%;">
+			{% block content %}
+			{% endblock %}
+		</div>
+		{% block js %}{% endblock %}
+	</body>
+</html>
