@@ -16,16 +16,19 @@ class RoomStore
 			title: "Sugarhill Gang - Rappers Delight (Full Version)"
 			uri: "https://api.soundcloud.com/tracks/1954789"
 			duration: 877055
+			id: 1954789
 		gasPedal =
 			stream_url: "https://api.soundcloud.com/tracks/64830027/stream"
 			uri: "https://api.soundcloud.com/tracks/64830027"
 			title: "Sage The Gemini - Gas Pedal (feat. IAMSU!)"
 			duration: 209338
+			id: 64830027
 		darkHorse =
 			stream_url: "https://api.soundcloud.com/tracks/110950395/stream"
 			uri: "https://api.soundcloud.com/tracks/110950395"
 			title: "Katy Perry - Dark Horse ft. Juicy J"
 			duration: 219057
+			id: 110950395
 		default_playlist = [rappersDelight, gasPedal, darkHorse]
 
 		@rooms.push

@@ -8,7 +8,7 @@ block content
 		h3 Playlist
 		ul#playlist
 			each track in playlist
-				li: span=track.title
+				li(data-id='#{track.id}'): span=track.title
 		section#search
 			.search
 				input#searchText(type="text", value="")

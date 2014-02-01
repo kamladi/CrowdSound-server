@@ -9,15 +9,26 @@ body {
 	display:table;
 	height:100%;
 }
-.row {
-	display:table-cell;
-	vertical-align:middle;
-	height:100%;
-}
+
 .hidden {
 	display: none;
 }
 #success, #error {
 	width: 75%;
 	margin-bottom: 5px;
+}
+
+.btn.btn-primary {
+	color:#34495E;
+	border-color:#34495E;
+}
+
+.btn.btn-primary:hover {
+	color:#2C3E50;
+	border-color:#2C3E50;
+}
+
+.center-row {
+	height: 100%;
+    vertical-align: middle;
 }

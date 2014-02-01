@@ -48,8 +48,10 @@ app.get '/search', (req, res) ->
 		else
 			# return subset of json result
 			json = JSON.parse body
+			console.log json[0].id
 			results = json.map (track) ->
 				return {
+					id: track.id
 					stream_url: track.stream_url
 					uri: track.uri
 					title: track.title
