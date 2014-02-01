@@ -1,32 +1,40 @@
 http = require 'http'
-RoomStore = require 'RoomStore'
+moment = require 'moment'
+RoomStore = require './RoomStore'
 
 ROOMS = new RoomStore()
 
-app = http.createServer (req, res) ->
-	res.writeHead 200
-  res.end()
+httpHandler = (req, res) ->
+	res.writeHead 200, {"Content-Type": "text/plain"}
+	res.end()
 
-io = require 'socket.io'
-io.listen app
+app = http.createServer(httpHandler)
+app.listen(8080, () -> console.log "listening on port 8080")
 
-app.listen 80
+io = require('socket.io').listen(app)
 
 io.sockets.on 'connection', (socket) ->
 
 	socket.on 'joinRoom', (room) ->
 		socket.join room
-
+		ROOMS.addUser room, socket.id
 		# save room id in socket object for easy reference
 		socket.room = room
 
-  # when client adds song to playlist
-  socket.on 'play', (data) ->
-    console.log(data)
+		# send playlist and current song packet to client
+		playlist = ROOMS.getPlaylist(room)
+		socket.emit 'playlist', playlist
+		now = moment()
+		packet = {
+			url: playlist[0]
+			songTime: now.diff(ROOMS.getTimestamp room)
+			serverTime: now
+		}
+		socket.emit 'timestamp', packet
 
   # when client adds new song to playlist
   socket.on 'addSong', (songURL) ->
   	roomId = socket.room
-  	ROOMS.addSongToPlaylist roomId, songURL
-
+  	newPlaylist = ROOMS.addSongToPlaylist roomId, songURL
+  	io.sockets.in(roomId).emit 'playlist', ROOMS.getPlaylist(roomId)
 
