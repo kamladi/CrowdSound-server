@@ -3,6 +3,8 @@ block content
 	script(src="http://connect.soundcloud.com/sdk.js")
 	script(src="/js/main.js")
 	h1= name
-		#playlist.col-md-4
-			h3 Playlist
-			ul#playlist
+	#playlist
+		h3 Playlist
+		ul#playlist
+			each track in playlist
+				li: span=track.title
