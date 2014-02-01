@@ -20,6 +20,9 @@ SC.initialize({
 });
 
 
+//test search
+$("#searchButton").click(soundcloudSearch('satisfaction'));
+
 function soundcloudSearch (query) {
 	SC.get('/tracks', { q: query}, function(tracks) {
 		console.log(tracks);
