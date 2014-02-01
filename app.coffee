@@ -23,7 +23,15 @@ app.use express.static(path.join(__dirname, 'public'))
 
 # URL Routes
 app.get '/', (req, res) ->
-	app.render 'index'
+	res.render 'index'
+
+app.get '/:roomId', (req, res) ->
+	roomId = parseInt req.params.roomId
+	if !ROOMS[roomId]?
+		res.send 404, "invalid room"
+	else
+		playlist = ROOMS.getPlaylist roomId
+		res.render 'room'
 
 app.get '/search', (req, res) ->
 	console.log req.query
