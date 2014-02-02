@@ -79,9 +79,16 @@ server.listen port, ->
 # Socket.IO handlers
 io = require('socket.io').listen(server)
 
-io.configure ->
-  io.set "transports", ["xhr-polling"]
+io.configure 'development' ->
+  io.set "transports", ["websocket", "xhr-polling"]
   io.set "polling duration", 10
+
+io.configure 'production', ->
+	io.set "transports", ["websocket", "flashsocket", "xhr-polling"]
+	io.enable('browser client minification');  // send minified client
+	io.enable('browser client etag');          // apply etag caching logic based on version number
+	io.enable('browser client gzip');          // gzip the file
+	io.set('log level', 1);                    // reduce logging
 
 io.sockets.on 'connection', (socket) ->
 
