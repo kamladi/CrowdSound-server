@@ -78,6 +78,11 @@ server.listen 8000, ->
 
 # Socket.IO handlers
 io = require('socket.io').listen(server)
+
+io.configure ->
+  io.set "transports", ["xhr-polling"]
+  io.set "polling duration", 10
+
 io.sockets.on 'connection', (socket) ->
 
 	socket.on 'joinRoom', (roomId) ->
