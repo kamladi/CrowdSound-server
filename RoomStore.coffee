@@ -11,6 +11,12 @@ class RoomStore
 	newRoom: ->
 		newId = @rooms.length
 		# build default playlist
+		darkHorse =
+			stream_url: "https://api.soundcloud.com/tracks/110950395/stream"
+			uri: "https://api.soundcloud.com/tracks/110950395"
+			title: "Katy Perry - Dark Horse ft. Juicy J"
+			duration: 219057
+			id: 110950395
 		rappersDelight =
 			stream_url: 'https://api.soundcloud.com/tracks/1954789/stream'
 			title: "Sugarhill Gang - Rappers Delight (Full Version)"
@@ -23,13 +29,7 @@ class RoomStore
 			title: "Sage The Gemini - Gas Pedal (feat. IAMSU!)"
 			duration: 209338
 			id: 64830027
-		darkHorse =
-			stream_url: "https://api.soundcloud.com/tracks/110950395/stream"
-			uri: "https://api.soundcloud.com/tracks/110950395"
-			title: "Katy Perry - Dark Horse ft. Juicy J"
-			duration: 219057
-			id: 110950395
-		default_playlist = [rappersDelight, gasPedal, darkHorse]
+		default_playlist = [darkHorse, gasPedal, rappersDelight]
 
 		@rooms.push
 			name: "Room #{newId}"

@@ -47,10 +47,6 @@ var gSound;
 function playSong (id, startedTimestamp) {
 	var started = new Date(startedTimestamp).getTime()
 	console.log("started: " + started);
-	var current = new Date().getTime();
-	console.log("current: " + current);
-	var offset = current - started;
-	console.log("offset: " + offset);
 
 	//resource: http://www.schillmania.com/projects/soundmanager2/doc/#smsound-setposition
 	SC.whenStreamingReady(function() {
@@ -59,9 +55,13 @@ function playSong (id, startedTimestamp) {
 		sound.setVolume(0);
 		sound.play();
 		setTimeout(function() {
+			var current = new Date().getTime();
+			console.log("current: " + current);
+			var offset = current - started;
+			console.log("offset: " + offset);
 			sound.setPosition(offset);
 			sound.setVolume(100);
-		},5000);
+		},3000);
 
 
 		// sound = SC.stream(id, {
