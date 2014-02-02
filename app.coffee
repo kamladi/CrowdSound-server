@@ -71,7 +71,7 @@ app.get '/:roomId', (req, res) ->
 			playlist: room.playlist
 
 
-var port = process.env.PORT || 8000;
+port = process.env.PORT || 8000;
 server.listen port, ->
 	console.log "listening on port #{port}"
 
