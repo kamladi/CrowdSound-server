@@ -61,18 +61,7 @@ function playSong (id, startedTimestamp) {
 			console.log("offset: " + offset);
 			sound.setPosition(offset);
 			sound.setVolume(100);
-		},3000);
-
-
-		// sound = SC.stream(id, {
-		// 	from: offset,
-		// 	autoLoad: true,
-		// 	autoPlay: true
-		// 	}
-		// });
-		// console.log(offset);
-		// sound.setPosition(offset);
-		// sound.play(sound.id, {from: offset});
+		},5000);
 });
 
 

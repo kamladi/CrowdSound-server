@@ -6,7 +6,6 @@ class RoomStore
 
 		@newRoom()
 		@newRoom()
-		console.dir @rooms
 
 	newRoom: ->
 		newId = @rooms.length
@@ -29,7 +28,7 @@ class RoomStore
 			title: "Sage The Gemini - Gas Pedal (feat. IAMSU!)"
 			duration: 209338
 			id: 64830027
-		default_playlist = [darkHorse, gasPedal, rappersDelight]
+		default_playlist = [rappersDelight, gasPedal, darkHorse]
 
 		@rooms.push
 			name: "Room #{newId}"
@@ -46,7 +45,6 @@ class RoomStore
 		return @rooms[roomId].playlist
 
 	addUser: (roomId, socketId) ->
-		console.dir @rooms
 		return @rooms[roomId].users.push socketId
 
 	getCurrTime: (roomId) ->

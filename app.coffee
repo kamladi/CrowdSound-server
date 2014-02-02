@@ -40,7 +40,6 @@ app.get '/search', (req, res) ->
 
 	# request soundcloud api with query
 	SOUNDCLOUD_URL = "https://api.soundcloud.com/tracks.json?"
-	console.log SOUNDCLOUD_URL + queryString
 	request SOUNDCLOUD_URL + queryString, (err, response, body) ->
 		if err
 			console.log "ERROR requesting soundcloud api"
@@ -48,7 +47,6 @@ app.get '/search', (req, res) ->
 		else
 			# return subset of json result
 			json = JSON.parse body
-			console.log json[0].id
 			results = json.map (track) ->
 				return {
 					id: track.id
@@ -62,7 +60,6 @@ app.get '/search', (req, res) ->
 app.get '/:roomId', (req, res) ->
 	roomId = parseInt req.params.roomId
 	room = ROOMS.getRoom roomId
-	console.dir room
 	if !room?
 		res.send 404, "invalid room"
 	else
@@ -80,8 +77,11 @@ server.listen port, ->
 io = require('socket.io').listen(server)
 
 io.configure 'development', ->
-  io.set "transports", ["websocket", "xhr-polling"]
-  io.set "polling duration", 10
+  io.set "transports", ["websocket"]
+  io.enable('browser client minification');  # send minified client
+	io.enable('browser client etag');          # apply etag caching logic based on version number
+	io.enable('browser client gzip');          # gzip the file
+	io.set('log level', 1);
 
 io.configure 'production', ->
 	io.set "transports", ["websocket", "flashsocket", "xhr-polling"]
@@ -118,6 +118,7 @@ io.sockets.on 'connection', (socket) ->
   	io.sockets.in(roomId).emit 'playlist', ROOMS.getPlaylist(roomId)
 
 nextSong = (roomId) ->
+	console.log "next song"
 	room = ROOMS.getRoom roomId
 	ROOMS.nextSong(roomId)
 	packet =
