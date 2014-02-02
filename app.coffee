@@ -79,7 +79,7 @@ server.listen port, ->
 # Socket.IO handlers
 io = require('socket.io').listen(server)
 
-io.configure 'development' ->
+io.configure 'development', ->
   io.set "transports", ["websocket", "xhr-polling"]
   io.set "polling duration", 10
 
